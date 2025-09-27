@@ -15,9 +15,9 @@ HookReturnCode ClientSay(SayParameters@ pParams)
         if (args.Arg(0).ToLowercase() == "help"){
 			if(g_PlayerFuncs.AdminLevel(player)>=ADMIN_YES){
                 g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"map = forced mapvote (admin only)\n");
-			    g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"mapvote = mapvote menu (admin only)\n");
+			    g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"mapmenu = mapvote menu (admin only)\n");
             }
-			g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"player = lists living and connected players\n");
+			// g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"player = lists living and connected players\n");
 
 
 			pParams.ShouldHide = true;

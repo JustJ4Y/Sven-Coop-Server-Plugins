@@ -81,7 +81,7 @@ void mapMenuCallback(CTextMenu@ menu, CBasePlayer@ plr, int itemNumber, const CT
     g_Scheduler.SetTimeout("openMapMenu", 0.0f, EHandle(plr), 0); // wait a frame or else game crashes
   } else
   {
-    g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, "Map: " + mapName + "\n");
+    g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, "Map changed to " + mapName + "!\n");
     g_Scheduler.SetTimeout("Mapchange", 2.0f, mapName);
   }
 }
@@ -96,7 +96,7 @@ void openMapMenu(EHandle h_plr, int pageNum)
 
   //  Initiates the mapMenuCallback as handle for the input you pick 
   @g_menus[eidx] = CTextMenu(@mapMenuCallback);
-  //  Sets 
+   
   g_menus[eidx].SetTitle("\\gMap Menu\\g   ");
 
   for (uint i = 0; i < g_maps.length(); i++)
@@ -111,9 +111,10 @@ void openMapMenu(EHandle h_plr, int pageNum)
 string StripEdgeColorCodes(const string &in s)
 {
     uint L = s.Length();
-    // erwartet: \X ... \Y  (insgesamt mind. 4 Zeichen)
+
     if (L >= 4 && s[0] == '\\' && s[L-2] == '\\')
-        return s.SubString(2, L - 4); // schneidet vorn 2 und hinten 2 ab
+        return s.SubString(2, L - 4);
+
     return s;
 }
 
