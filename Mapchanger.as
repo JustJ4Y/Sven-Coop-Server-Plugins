@@ -1,13 +1,11 @@
-void PluginInit()
-{
+void PluginInit(){
     g_Module.ScriptInfo.SetAuthor("JustJ4Y, Megaraptor38");
     g_Module.ScriptInfo.SetContactInfo("https://github.com/JustJ4Y/Sven-Coop-Server-Plugins");
 
     g_Hooks.RegisterHook(Hooks::Player::ClientSay, @ClientSay);
 }
 
-HookReturnCode ClientSay(SayParameters@ pParams)
-{
+HookReturnCode ClientSay(SayParameters@ pParams){
     const CCommand@ args = pParams.GetArguments();
 	CBasePlayer@ player = pParams.GetPlayer();
 
