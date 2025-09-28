@@ -1,4 +1,4 @@
-const string szLastManMusic = "music/lastMan.mp3";
+const string szLastManMusic = "as_scripts/lastMan.mp3";
 
 void PluginInit(){
     g_Module.ScriptInfo.SetAuthor("JustJ4Y, Megaraptor38");

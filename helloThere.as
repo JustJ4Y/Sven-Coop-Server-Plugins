@@ -1,4 +1,4 @@
-const string helloThere = "music/hellothere.mp3";
+const string helloThere = "as_scripts/hellothere.mp3";
 
 void PluginInit()
 {
