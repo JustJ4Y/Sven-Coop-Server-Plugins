@@ -15,16 +15,19 @@ You can install whichever one you want, they are not dependent on one another.
 ```
 
 ## helloThere.as
-Plays a soundfile `hellothere.mp3`(not provided) from the this folder `/svencoop/sound/music` (You can choose any sound of your liking) and shows a message "General Kenobi!" in chat when a player joins the server.
+Plays a soundfile `hellothere.mp3`(not provided) from the this folder `/svencoop/sound/as_scripts` (You can choose any sound of your liking) and shows a message "General Kenobi!" in chat when a player joins the server.
 
 ## help.as
-Only helpful if you install all plugins from here. If you type "help" in chat it shows you all possible commands.
+Only helpful if you install all plugins from here. If you type `help` in chat it shows you all possible commands.
 
 ## lastManSound.as
-Plays a soundfile `lastMan.mp3`(not provided) from the this folder `/svencoop/sound/music` (You can choose any sound of your liking) and shows a message "Only one living player left!" whenever only one living player is left, but more than one player is connected.
+Plays a soundfile `lastMan.mp3`(not provided) from the this folder `/svencoop/sound/as_scripts` (You can choose any sound of your liking) and shows a message "Only one living player left!" whenever only one living player is left, but more than one player is connected.
 
 ## mapChanger.as
-Let's you do a simple map change by typing "map" and the mapname in chat (admins only).
+Let's you do a simple map change by typing `map` and the mapname in chat (admins only).
 
 ## mapMenu.as
-You can type mapmenu in chat to open the map change menu (admins only).
+You can type `mapmenu` in chat to open the map change menu (admins only). The map names need to be listed in `scripts/plugins/cfg/maps.txt` or else the map menu will not work.
+
+## monsterKillFeed.as
+Shows monsters getting killed in the kill feed. It also plays the `pling.wav`found in `/svencoop/sound/as_scripts` everytime a player gets a kill for the given player.
