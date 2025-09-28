@@ -1,4 +1,4 @@
-const string szLastManMusic = "music/Deshi_Basara.mp3";
+const string szLastManMusic = "music/lastMan.mp3";
 
 void PluginInit(){
     g_Module.ScriptInfo.SetAuthor("JustJ4Y, Megaraptor38");
@@ -34,7 +34,7 @@ HookReturnCode PlayerKilled( CBasePlayer@ pPlayer, CBaseEntity@ pAttacker, int i
         Stop();
     }
 
-    g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK, "[Spieler] Lebend: " + aliveCount + " / Verbunden: " + connectedCount + "\n");
+    g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK, "[Players] Alive: " + aliveCount + " / Connected: " + connectedCount + "\n");
 
     return HOOK_CONTINUE;
 }
@@ -52,7 +52,7 @@ HookReturnCode PlayerRevived( CBasePlayer@ pPlayer ){
 void Play()
 {
 	g_SoundSystem.PlaySound(g_EntityFuncs.IndexEnt(0), CHAN_MUSIC, szLastManMusic, 1.0f, 0.0f, SND_FORCE_LOOP);
-    g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK,"Du bist das Letzte!\n");
+    g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK,"Only one living player left!\n");
 }
 
 void Stop()
