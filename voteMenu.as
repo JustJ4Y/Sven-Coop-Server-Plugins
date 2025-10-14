@@ -1,5 +1,6 @@
 const string g_mapsfile = "scripts/plugins/cfg/maps.txt";
 const string voteNow = "as_scripts/votenow.wav";
+const string votePassed = "as_scripts/votepassed.wav";
 
 array<string> g_maps;
 
@@ -21,6 +22,9 @@ void PluginInit()
 void MapInit(){
 	g_Game.PrecacheGeneric( "sound/" + voteNow );
 	g_SoundSystem.PrecacheSound( voteNow );
+
+    g_Game.PrecacheGeneric( "sound/" + votePassed );
+	g_SoundSystem.PrecacheSound( votePassed );
 }
 
 HookReturnCode ClientSay(SayParameters@ pParams)
@@ -168,6 +172,8 @@ void OnVoteEnd(Vote@ pVote, bool fResult, int iVoters)
         " (Votes: " + iVoters + ")\n");
 
     if (fResult) {
+        g_SoundSystem.PlaySound(g_EntityFuncs.IndexEnt(0), CHAN_MUSIC, votePassed, 1.0f, 0.0f);
+
         g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, "Map changed to " + mapName + "!\n");
         g_Scheduler.SetTimeout("Mapchange", 2.0f, mapName);
     }
