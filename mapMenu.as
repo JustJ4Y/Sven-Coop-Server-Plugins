@@ -8,7 +8,7 @@ array<CTextMenu@> g_menus(g_Engine.maxClients+1, null);
 void PluginInit()
 {
   //  Information for as_listplugin command
-  g_Module.ScriptInfo.SetAuthor("JustJ4y, Megaraptor38");
+  g_Module.ScriptInfo.SetAuthor("JustJ4Y, Megaraptor38");
   g_Module.ScriptInfo.SetContactInfo("https://github.com/JustJ4Y/Sven-Coop-Server-Plugins");
 
   //  Register what the player writes in chat

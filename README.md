@@ -31,3 +31,6 @@ You can type `mapmenu` in chat to open the map change menu (admins only). The ma
 
 ## monsterKillFeed.as
 Shows monsters getting killed in the kill feed. It also plays the `pling.wav`found in `/svencoop/sound/as_scripts` everytime a player gets a kill for the given player.
+
+## voteMenu.as
+You can type `votemap` in chat to open the map vote menu. Selecting a map will start the mapvote. The map names need to be listed in `scripts/plugins/cfg/maps.txt` or else the map menu will not work.
