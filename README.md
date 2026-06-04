@@ -29,6 +29,9 @@ Let's you do a simple map change by typing `map` and the mapname in chat (admins
 ## mapMenu.as
 You can type `mapmenu` in chat to open the map change menu (admins only). The map names need to be listed in `scripts/plugins/cfg/maps.txt` or else the map menu will not work.
 
+## mapTime.as
+Saves how long a map took to complete. When the level changes the elapsed play time is measured and the fastest completion per map is stored in `scripts/plugins/store/maptimes.txt` (create the `store` folder if it does not exist). A new record is announced in chat. Any player can type `maptime` (or `besttime`) in chat to see the best saved time for the current map.
+
 ## monsterKillFeed.as
 Shows monsters getting killed in the kill feed. It also plays the `pling.wav`found in `/svencoop/sound/as_scripts` everytime a player gets a kill for the given player.
 

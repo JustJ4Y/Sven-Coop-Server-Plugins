@@ -17,6 +17,7 @@ HookReturnCode ClientSay(SayParameters@ pParams)
                 g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"map = forced mapvote (admin only)\n");
 			    g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"mapmenu = mapvote menu (admin only)\n");
             }
+			g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"maptime = shows the best completion time for this map\n");
 			// g_PlayerFuncs.ClientPrint(player,HUD_PRINTTALK,"player = lists living and connected players\n");
 
 
