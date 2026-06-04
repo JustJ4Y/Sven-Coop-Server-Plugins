@@ -171,5 +171,5 @@ string FormatTime(float seconds)
     int secs = total % 60;
 
     string secStr = secs < 10 ? "0" + secs : "" + secs;
-    return minutes + ":" + secStr;
+    return "" + minutes + ":" + secStr;
 }
