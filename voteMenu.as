@@ -183,7 +183,15 @@ void OnVoteEnd(Vote@ pVote, bool fResult, int iVoters)
 }
 
 void Mapchange(const string & in mapName){
+    MarkForcedChange();
     g_EngineFuncs.ServerCommand("changelevel " + mapName + "\n");
+}
+
+//  Tells mapTime.as this level change was forced, so it is not logged as a completion
+void MarkForcedChange(){
+    CBaseEntity@ pWorld = g_EntityFuncs.FindEntityByClassname(null, "worldspawn");
+    if (pWorld !is null)
+        pWorld.GetCustomKeyvalues().SetKeyvalue("$i_maptime_forced", 1);
 }
 
 void OnVoteBlocked(Vote@ pVote, float flTime)

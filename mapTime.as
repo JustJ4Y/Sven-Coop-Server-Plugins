@@ -30,6 +30,18 @@ void MapInit()
 
 HookReturnCode MapChange(const string& in szNextMap)
 {
+    //  Empty next map means the server is shutting down, not a completion
+    if (szNextMap.IsEmpty())
+        return HOOK_CONTINUE;
+
+    //  Admin map changes and passed mapvotes leave a flag, ignore those
+    if (WasForcedChange())
+        return HOOK_CONTINUE;
+
+    //  A real completion needs at least one survivor, otherwise it was a failed attempt
+    if (CountAlivePlayers() < 1)
+        return HOOK_CONTINUE;
+
     //  How long the players took on this map
     float elapsed = g_Engine.time - g_mapStartTime;
     string currentMap = string(g_Engine.mapname);
@@ -37,6 +49,33 @@ HookReturnCode MapChange(const string& in szNextMap)
     SaveTime(currentMap, elapsed);
 
     return HOOK_CONTINUE;
+}
+
+//  True if the level change was forced by another plugin (admin map / mapvote)
+bool WasForcedChange()
+{
+    CBaseEntity@ pWorld = g_EntityFuncs.FindEntityByClassname(null, "worldspawn");
+    if (pWorld is null)
+        return false;
+
+    //  The forcing plugin sets this keyvalue on worldspawn before changing the level
+    CustomKeyvalue forced(pWorld.GetCustomKeyvalues().GetKeyvalue("$i_maptime_forced"));
+    return forced.Exists();
+}
+
+//  Counts how many connected players are still alive
+uint CountAlivePlayers()
+{
+    uint aliveCount = 0;
+
+    for (int i = 1; i <= g_Engine.maxClients; i++)
+    {
+        CBasePlayer@ pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
+        if (pPlayer !is null && pPlayer.IsConnected() && pPlayer.IsAlive())
+            aliveCount++;
+    }
+
+    return aliveCount;
 }
 
 HookReturnCode ClientSay(SayParameters@ pParams)
