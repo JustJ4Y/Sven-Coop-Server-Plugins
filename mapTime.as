@@ -1,6 +1,9 @@
 //  File where the best completion times are stored (mapname time)
 const string g_timesFile = "scripts/plugins/store/maptimes.txt";
 
+//  Shared flag file: forcing plugins write "1" here so a forced change is not logged
+const string g_forcedFlagFile = "scripts/plugins/store/maptime_forced.txt";
+
 //  Time (in seconds) the current map was started at
 float g_mapStartTime = 0.0f;
 
@@ -26,6 +29,9 @@ void MapInit()
 {
     //  Remember when this map started so we can measure how long it took
     g_mapStartTime = g_Engine.time;
+
+    //  Fresh map: clear any leftover forced-change flag from the previous change
+    ClearForcedChange();
 }
 
 HookReturnCode MapChange(const string& in szNextMap)
@@ -54,13 +60,30 @@ HookReturnCode MapChange(const string& in szNextMap)
 //  True if the level change was forced by another plugin (admin map / mapvote)
 bool WasForcedChange()
 {
-    CBaseEntity@ pWorld = g_EntityFuncs.FindEntityByClassname(null, "worldspawn");
-    if (pWorld is null)
-        return false;
+    bool forced = false;
 
-    //  The forcing plugin sets this keyvalue on worldspawn before changing the level
-    CustomKeyvalue forced(pWorld.GetCustomKeyvalues().GetKeyvalue("$i_maptime_forced"));
-    return forced.Exists();
+    File@ file = g_FileSystem.OpenFile(g_forcedFlagFile, OpenFile::READ);
+    if (file !is null && file.IsOpen())
+    {
+        string line;
+        file.ReadLine(line);
+        line.Trim();
+        forced = (line == "1");
+        file.Close();
+    }
+
+    return forced;
+}
+
+//  Resets the shared forced-change flag back to "0"
+void ClearForcedChange()
+{
+    File@ file = g_FileSystem.OpenFile(g_forcedFlagFile, OpenFile::WRITE);
+    if (file !is null && file.IsOpen())
+    {
+        file.Write("0\n");
+        file.Close();
+    }
 }
 
 //  Counts how many connected players are still alive

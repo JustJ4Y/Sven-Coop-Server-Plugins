@@ -125,7 +125,9 @@ void Mapchange(const string & in mapname){
 
 //  Tells mapTime.as this level change was forced, so it is not logged as a completion
 void MarkForcedChange(){
-  CBaseEntity@ pWorld = g_EntityFuncs.FindEntityByClassname(null, "worldspawn");
-  if (pWorld !is null)
-    pWorld.GetCustomKeyvalues().SetKeyvalue("$i_maptime_forced", 1);
+  File@ file = g_FileSystem.OpenFile("scripts/plugins/store/maptime_forced.txt", OpenFile::WRITE);
+  if (file !is null && file.IsOpen()){
+    file.Write("1\n");
+    file.Close();
+  }
 }
