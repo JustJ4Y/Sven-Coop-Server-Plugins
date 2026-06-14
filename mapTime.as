@@ -32,6 +32,25 @@ void MapInit()
 
     //  Fresh map: clear any leftover forced-change flag from the previous change
     ClearForcedChange();
+    g_Scheduler.SetTimeout("MapStart",15.0f);
+}
+
+void MapStart()
+{
+    string currentMap = string(g_Engine.mapname);
+
+    if (g_records.exists(currentMap))
+    {
+        float best;
+        g_records.get(currentMap, best);
+        g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK,
+            "Best time for " + currentMap + ": " + FormatTime(best) + "\n");
+    }
+    else
+    {
+        g_PlayerFuncs.ClientPrintAll(HUD_PRINTTALK,
+            "No time saved for " + currentMap + " yet. Be the first to complete it!\n");
+    }
 }
 
 HookReturnCode MapChange(const string& in szNextMap)
@@ -105,25 +124,34 @@ HookReturnCode ClientSay(SayParameters@ pParams)
 {
     const CCommand@ args = pParams.GetArguments();
     CBasePlayer@ player = pParams.GetPlayer();
+    string askedMap = "";
 
     if (args.ArgC() > 0)
     {
         //  Shows the player the best time for the current map
         if (args.Arg(0).ToLowercase() == "maptime" || args.Arg(0).ToLowercase() == "besttime")
         {
-            string currentMap = string(g_Engine.mapname);
 
-            if (g_records.exists(currentMap))
+            if (args.ArgC() == 2)
+            {
+                askedMap = args.Arg(1).ToLowercase();
+            }
+            else
+            {
+                askedMap = string(g_Engine.mapname);
+            }
+
+            if (g_records.exists(askedMap))
             {
                 float best;
-                g_records.get(currentMap, best);
+                g_records.get(askedMap, best);
                 g_PlayerFuncs.ClientPrint(player, HUD_PRINTTALK,
-                    "Best time for " + currentMap + ": " + FormatTime(best) + "\n");
+                    "Best time for " + askedMap + ": " + FormatTime(best) + "\n");
             }
             else
             {
                 g_PlayerFuncs.ClientPrint(player, HUD_PRINTTALK,
-                    "No time saved for " + currentMap + " yet. Be the first to complete it!\n");
+                    "No time saved for " + askedMap + " yet. Be the first to complete it!\n");
             }
 
             pParams.ShouldHide = true;
@@ -225,13 +253,23 @@ void WriteRecords()
     }
 }
 
-//  Turns seconds into a readable "M:SS" string
+//  Turns seconds into a readable "H:MM:SS" string
 string FormatTime(float seconds)
 {
     int total = int(seconds);
-    int minutes = total / 60;
+    int hours = total / 3600;
+    int minutes = (total / 60) % 60;
     int secs = total % 60;
 
     string secStr = secs < 10 ? "0" + secs : "" + secs;
-    return "" + minutes + ":" + secStr;
+    string minutesStr = minutes < 10 ? "0" + minutes : "" + minutes;
+
+    if (total < 3600)
+    {
+        return "" + minutes + ":" + secStr;
+    } 
+    else
+    {
+        return "" + hours + ":" + minutesStr + ":" + secStr;
+    }
 }
