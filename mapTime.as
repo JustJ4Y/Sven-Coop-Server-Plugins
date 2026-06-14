@@ -129,7 +129,7 @@ HookReturnCode ClientSay(SayParameters@ pParams)
     if (args.ArgC() > 0)
     {
         //  Shows the player the best time for the current map
-        if (args.Arg(0).ToLowercase() == "maptime" || args.Arg(0).ToLowercase() == "besttime")
+        if (args.Arg(0).ToLowercase() == "maptime" || args.Arg(0).ToLowercase() == "time")
         {
 
             if (args.ArgC() == 2)

@@ -30,15 +30,16 @@ Let's you do a simple map change by typing `map` and the mapname in chat (admins
 You can type `mapmenu` in chat to open the map change menu (admins only). The map names need to be listed in `scripts/plugins/cfg/maps.txt` or else the map menu will not work.
 
 ## mapTime.as
-Saves how long a map took to complete. When a map is finished the elapsed play time is measured and the fastest completion per map is stored in `scripts/plugins/store/maptimes.txt` (create the `store` folder if it does not exist). A new record is announced in chat. Any player can type `maptime` (or `besttime`) in chat to see the best saved time for the current map.
+You can type `maptime` or `time` in chat to see your fastest time it took to successfully complete the current map. 
+Additionally you can add the desired mapname after the command to see your best time for that map.
 
-Forced map changes are not counted: admin map changes (`mapChanger.as`), the map menu (`mapMenu.as`) and passed mapvotes (`voteMenu.as`) flag the change so it is ignored, and a completion is only logged if at least one player is still alive (so a wiped/failed attempt does not set a record).
+Maptimes will be stored in `scripts/plugins/store/maptimes.txt`.
 
 ## monsterKillFeed.as
 Shows monsters getting killed in the kill feed. It also plays the `pling.wav`found in `/svencoop/sound/as_scripts` everytime a player gets a kill for the given player.
 
 ## survivalToggler.as
-As and admin you can type `survival` in chat to toggle survival mode.
+As an admin you can type `survival` in chat to toggle survival mode.
 
 ## voteMenu.as
 You can type `votemap` in chat to open the map vote menu. Selecting a map will start the mapvote. The map names need to be listed in `scripts/plugins/cfg/maps.txt` or else the map menu will not work.
